@@ -1,16 +1,18 @@
 <script>
-    let { data } = $props();
-
-    const members = data.members;
-
+    let { data } = $props(); 
+    const member = data.member;
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<section class="outlay">
+    <section class="mycard-front mycard-style">
+        <div>
+           <img src={member?.avatar} alt={member?.name}>
+        </div>    
+        <h1>{member?.name}</h1>
+    </section>
 
-{#each members as member}
-  <a href="/{member.id}">
-    <h2>{member.name}</h2>
-    <img src="{member.avatar}" alt="{member.name}" width="100"/>
-  </a>
-{/each}
+    <section class="mycard-back mycard-style">
+        <p>{member?.bio}</p>
+    </section>
+</section>
+

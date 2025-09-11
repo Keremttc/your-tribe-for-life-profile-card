@@ -1,8 +1,8 @@
-export async function load ({ url }) {
+export async function load({ url }) {
+    const memberResponse = await fetch ('https://fdnd.directus.app/items/person/174');
+    const memberData = await memberResponse.json();
 
-    const membersResponse = await fetch('https://fdnd.directus.app/items/person?filter[squads][squad_id][cohort][_eq]=2526');
+    console.log(memberData)
+    return {member: memberData.data}
 
-    const membersData = await membersResponse.json();
-
-    return {members: membersData.data};
 }
