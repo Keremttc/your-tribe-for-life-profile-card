@@ -13,6 +13,26 @@
     message = '';
     alert('Bericht verzonden! :)');
   }
+
+  let buttonEl;
+
+  function handleMouseMove(event) {
+    const rect = buttonEl.getBoundingClientRect();
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = (mouseX - centerX) / 1; 
+    const deltaY = (mouseY - centerY) / 1;
+
+    buttonEl.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+  }
+
+  function handleMouseLeave() {
+    buttonEl.style.transform = `translate(0, 0)`;
+  }
 </script>
 
 <div class="wrapper">
@@ -36,7 +56,16 @@
       </form>
 
       <div class="nav">
-        <button type="submit" class="btn-cta" on:click={handleSubmit}>Submit!</button>
+        <button 
+          type="submit" 
+          class="btn-cta" 
+          bind:this={buttonEl} 
+          on:click={handleSubmit}
+          on:mousemove={handleMouseMove}
+          on:mouseleave={handleMouseLeave}
+        >
+          Submit!
+        </button>
       </div>
 
       {#if sentMessage}
@@ -45,7 +74,6 @@
     </div>
   </div>
 </div>
-
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
@@ -63,7 +91,6 @@
   align-items: center; 
   justify-content: center; 
   background: linear-gradient(to bottom, #a8edea, #fed6e3, #fbc2eb);
-
 }
 
 .card {
@@ -136,10 +163,11 @@ button {
   cursor: pointer;
   background: #ffffff;  
   padding: 0 20px;
-  border-radius: 10px ;
+  border-radius: 10px;
   color: #000;
   font-weight: bold;
   letter-spacing: 5px;
+  transition: transform 0.2s ease; /* Magnetisch smooth */
 }
 
 button::after {
@@ -159,7 +187,4 @@ button:hover::after { width: 100%; }
   color: green;
   text-align: center;
 }
-
-
 </style>
-
